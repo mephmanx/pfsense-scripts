@@ -38,7 +38,7 @@ dnsdata=`curl -s -X GET -H "Authorization: sso-key ${gdapikey}" "https://api.god
 gdip=`echo $dnsdata | cut -d ',' -f 1 | tr -d '"' | cut -d ":" -f 2`
 echo "`date '+%Y-%m-%d %H:%M:%S'` - Current External IP is $external_ip, GoDaddy DNS IP is $gdip"
 
-if [ "$gdip" != "$myip" -a "$myip" != "" ]; then
+if [ "$gdip" != "$external_ip" -a "$external_ip" != "" ]; then
   echo "IP has changed!! Updating on GoDaddy"
   curl -s -X PUT "https://api.godaddy.com/v1/domains/${mydomain}/records/A/${myhostname}" -H "Authorization: sso-key ${gdapikey}" -H "Content-Type: application/json" -d "[{\"data\": \"${external_ip}\"}]"
   logger -p $logdest "Changed IP on ${hostname}.${mydomain} from ${gdip} to ${external_ip}"
@@ -56,7 +56,7 @@ dnsdata=`curl -s -X GET -H "Authorization: sso-key ${gdapikey}" "https://api.god
 gdip=`echo $dnsdata | cut -d ',' -f 1 | tr -d '"' | cut -d ":" -f 2`
 echo "`date '+%Y-%m-%d %H:%M:%S'` - Current External IP is $internal_ip, GoDaddy DNS IP is $gdip"
 
-if [ "$gdip" != "$myip" -a "$myip" != "" ]; then
+if [ "$gdip" != "$internal_ip" -a "$internal_ip" != "" ]; then
   echo "IP has changed!! Updating on GoDaddy"
   curl -s -X PUT "https://api.godaddy.com/v1/domains/${mydomain}/records/A/${myhostname}" -H "Authorization: sso-key ${gdapikey}" -H "Content-Type: application/json" -d "[{\"data\": \"${internal_ip}\"}]"
   logger -p $logdest "Changed IP on ${hostname}.${mydomain} from ${gdip} to ${internal_ip}"
