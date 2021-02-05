@@ -70,4 +70,6 @@ git commit -am "Auto Server Commit $(timestamp)"
 git push 
 
 }
-{ all_my_code  } 
+
+all_my_code
+
