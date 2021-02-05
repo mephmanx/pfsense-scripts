@@ -33,7 +33,7 @@ mydomain="lyonsgroup.family"
 myhostname="app-external"
 gdapikey="e4CDttXYZYqD_Y9fRirgZfkcKtwuMfDJdTf:2r7JhQudVES1n6wnbZLk9m"
 logdest="external.info"
-external_ip=`$(nextip myip)`
+external_ip=`$(nextip $myip)`
 dnsdata=`curl -s -X GET -H "Authorization: sso-key ${gdapikey}" "https://api.godaddy.com/v1/domains/${mydomain}/records/A/${myhostname}"`
 gdip=`echo $dnsdata | cut -d ',' -f 1 | tr -d '"' | cut -d ":" -f 2`
 echo "`date '+%Y-%m-%d %H:%M:%S'` - Current External IP is $external_ip, GoDaddy DNS IP is $gdip"
@@ -51,7 +51,7 @@ mydomain="lyonsgroup.family"
 myhostname="app-internal"
 gdapikey="e4CDttXYZYqD_Y9fRirgZfkcKtwuMfDJdTf:2r7JhQudVES1n6wnbZLk9m"
 logdest="internal.info"
-internal_ip=`$(nextip external_ip)`
+internal_ip=`$(nextip $external_ip)`
 dnsdata=`curl -s -X GET -H "Authorization: sso-key ${gdapikey}" "https://api.godaddy.com/v1/domains/${mydomain}/records/A/${myhostname}"`
 gdip=`echo $dnsdata | cut -d ',' -f 1 | tr -d '"' | cut -d ":" -f 2`
 echo "`date '+%Y-%m-%d %H:%M:%S'` - Current External IP is $internal_ip, GoDaddy DNS IP is $gdip"
