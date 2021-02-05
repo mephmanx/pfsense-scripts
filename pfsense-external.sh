@@ -70,6 +70,6 @@ git commit -am "Auto Server Commit $(timestamp)"
 git push 
 
 }
-
-all_my_code
-
+{ all_my_code |
+  logger -p user.notice -t "$(basename "$0")"; } 2>&1 | 
+  logger -p user.error -t "$(basename "$0")"
