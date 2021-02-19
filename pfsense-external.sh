@@ -23,23 +23,19 @@ IFS=
 
 crt=`cat /conf/acme/esxi.crt`
 
-CMD_CRT=$(cat <<END
-rm -rf /etc/vmware/ssl/rui.crt.bk
-mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk
-echo "$crt" > /etc/vmware/ssl/rui.crt
-END)
-
-ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "$CMD_CRT"
+ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/vmware/ssl/rui.crt.bk;
+mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
+echo "$crt" > /etc/vmware/ssl/rui.crt;
+"
 
 key=`cat /conf/acme/esxi.key`
 
-CMD_KEY=$(cat <<END
-rm -rf /etc/vmware/ssl/rui.key.bk
-mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk
-echo "$key" > /etc/vmware/ssl/rui.key
-END)
-
-ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "$CMD_KEY"
+ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/vmware/ssl/rui.key.bk;
+mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
+echo "$key" > /etc/vmware/ssl/rui.key;
+"
 
 ############################
 
