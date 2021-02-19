@@ -21,7 +21,7 @@ echo `jot -r 1 1 10000` > stamp.ver
 #### Add code here.  code outside is wrapper to detect things run
 IFS=
 
-crt=$(</conf/acme/esxi.crt)
+crt=`cat /conf/acme/esxi.crt`
 
 CMD_CRT=$(cat <<END
 rm -rf /etc/vmware/ssl/rui.crt.bk
@@ -31,7 +31,7 @@ END)
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "$CMD_CRT"
 
-key=$(</conf/acme/esxi.key)
+key=`cat /conf/acme/esxi.key`
 
 CMD_KEY=$(cat <<END
 rm -rf /etc/vmware/ssl/rui.key.bk
