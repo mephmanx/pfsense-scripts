@@ -21,20 +21,20 @@ echo `jot -r 1 1 10000` > stamp.ver
 #### Add code here.  code outside is wrapper to detect things run
 IFS=
 
-crt=`cat /conf/acme/esxi.crt`
+scp /conf/acme/esxi.crt root@esxi.lyonsgroup.family:/tmp
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.crt.bk;
-#mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
-echo "$crt" > /etc/vmware/ssl/rui.crt-test;
+mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
+mv /tmp/esxi.crt /etc/vmware/ssl/rui.crt;
 "
 
-key=`cat /conf/acme/esxi.key`
+scp /conf/acme/esxi.key root@esxi.lyonsgroup.family:/tmp
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.key.bk;
-#mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
-echo "$key" > /etc/vmware/ssl/rui.key-test;
+mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
+mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
 "
 
 ############################
