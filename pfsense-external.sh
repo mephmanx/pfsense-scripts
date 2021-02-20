@@ -25,16 +25,16 @@ crt=`cat /conf/acme/esxi.crt`
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.crt.bk;
-mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
-echo "$crt" > /etc/vmware/ssl/rui.crt;
+#mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
+echo "$crt" > /etc/vmware/ssl/rui.crt-test;
 "
 
 key=`cat /conf/acme/esxi.key`
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.key.bk;
-mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
-echo "$key" > /etc/vmware/ssl/rui.key;
+#mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
+echo "$key" > /etc/vmware/ssl/rui.key-test;
 "
 
 ############################
