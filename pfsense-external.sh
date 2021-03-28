@@ -46,19 +46,30 @@ mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
 scp /conf/acme/lyonsgroup-wildcard.crt root@cloudsupport.lyonsgroup.family:/tmp
 
 ssh -l root cloudsupport.lyonsgroup.family -i ~/.ssh/id_rsa "
-rm -rf /etc/vmware/ssl/rui.crt.bk;
-mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
-mv /tmp/esxi.crt /etc/vmware/ssl/rui.crt;
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/cert.pem;
+mv /tmp/lyonsgroup-wildcard.crt /etc/letsencrypt/live/lyonsgroup.family/cert.pem;
 "
 
 scp /conf/acme/lyonsgroup-wildcard.key root@cloudsupport.lyonsgroup.family:/tmp
 
 ssh -l root cloudsupport.lyonsgroup.family -i ~/.ssh/id_rsa "
-rm -rf /etc/vmware/ssl/rui.key.bk;
-mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
-mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/privkey.pem;
+mv /tmp/lyonsgroup-wildcard.key /etc/letsencrypt/live/lyonsgroup.family/privkey.pem;
 "
 
+scp /conf/acme/lyonsgroup-wildcard.ca root@cloudsupport.lyonsgroup.family:/tmp
+
+ssh -l root cloudsupport.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/chain.pem;
+mv /tmp/lyonsgroup-wildcard.ca /etc/letsencrypt/live/lyonsgroup.family/chain.pem;
+"
+
+scp /conf/acme/lyonsgroup-wildcard.fullchain root@cloudsupport.lyonsgroup.family:/tmp
+
+ssh -l root cloudsupport.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/fullchain.pem;
+mv /tmp/lyonsgroup-wildcard.fullchain /etc/letsencrypt/live/lyonsgroup.family/fullchain.pem;
+"
 ############################
 
 ############################
