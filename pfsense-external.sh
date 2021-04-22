@@ -42,6 +42,9 @@ mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
 ###########################
 
 ############# Update certs on Docker host
+####
+# If update fails, run this on pfsense router:  ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport
+#####
 
 scp /conf/acme/lyonsgroup-wildcard.crt root@cloudsupport.lyonsgroup.family:/tmp
 
