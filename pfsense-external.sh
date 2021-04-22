@@ -28,7 +28,7 @@ scp /conf/acme/esxi.crt root@esxi.lyonsgroup.family:/tmp
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.crt.bk;
 mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
-mv /tmp/esxi.crt /etc/vmware/ssl/rui.crt;
+mv /tmp/esxi.fullchain /etc/vmware/ssl/rui.crt;
 "
 
 scp /conf/acme/esxi.key root@esxi.lyonsgroup.family:/tmp
