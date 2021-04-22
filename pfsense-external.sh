@@ -23,7 +23,7 @@ IFS=
 
 ####### Update cert on ESXi server
 
-scp /conf/acme/esxi.crt root@esxi.lyonsgroup.family:/tmp
+scp /conf/acme/esxi.fullchain root@esxi.lyonsgroup.family:/tmp
 
 ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
 rm -rf /etc/vmware/ssl/rui.crt.bk;
