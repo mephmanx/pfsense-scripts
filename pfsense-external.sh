@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source ../openstack-setup/openstack-env.sh
+. ../openstack-setup/openstack-env.sh
 
 timestamp(){
    date +"%d.%m.%Y um %H:%M"
