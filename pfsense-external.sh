@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ../openstack-setup/openstack-env.sh
+
 timestamp(){
    date +"%d.%m.%Y um %H:%M"
 }
@@ -45,6 +47,8 @@ mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
 ####
 # If update fails, run this on pfsense router:  ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport
 #####
+
+echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport
 
 scp /conf/acme/lyonsgroup-wildcard.crt root@cloudsupport.lyonsgroup.family:/tmp
 
