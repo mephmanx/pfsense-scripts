@@ -23,24 +23,41 @@ echo `jot -r 1 1 10000` > stamp.ver
 #### Add code here.  code outside is wrapper to detect things run
 IFS=
 
-####### Update cert on ESXi server
+####### Update cert on centos server
+####
+# If update fails, run this on pfsense router:  ssh-copy-id -i ~/.ssh/id_rsa.pub root@centos (or openstack, if old image)
+#####
 
-scp /conf/acme/esxi.fullchain root@esxi.lyonsgroup.family:/tmp
+echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@openstack
 
-ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
-rm -rf /etc/vmware/ssl/rui.crt.bk;
-mv /etc/vmware/ssl/rui.crt /etc/vmware/ssl/rui.crt.bk;
-mv /tmp/esxi.fullchain /etc/vmware/ssl/rui.crt;
+scp /conf/acme/lyonsgroup-wildcard.crt root@openstack.lyonsgroup.family:/tmp
+
+ssh -l root openstack.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/cert.pem;
+mv /tmp/lyonsgroup-wildcard.crt /etc/letsencrypt/live/lyonsgroup.family/cert.pem;
 "
 
-scp /conf/acme/esxi.key root@esxi.lyonsgroup.family:/tmp
+scp /conf/acme/lyonsgroup-wildcard.key root@openstack.lyonsgroup.family:/tmp
 
-ssh -l root esxi.lyonsgroup.family -i ~/.ssh/id_rsa "
-rm -rf /etc/vmware/ssl/rui.key.bk;
-mv /etc/vmware/ssl/rui.key /etc/vmware/ssl/rui.key.bk;
-mv /tmp/esxi.key /etc/vmware/ssl/rui.key;
+ssh -l root openstack.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/privkey.pem;
+mv /tmp/lyonsgroup-wildcard.key /etc/letsencrypt/live/lyonsgroup.family/privkey.pem;
 "
 
+scp /conf/acme/lyonsgroup-wildcard.ca root@openstack.lyonsgroup.family:/tmp
+
+ssh -l root openstack.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/chain.pem;
+mv /tmp/lyonsgroup-wildcard.ca /etc/letsencrypt/live/lyonsgroup.family/chain.pem;
+"
+
+scp /conf/acme/lyonsgroup-wildcard.fullchain root@openstack.lyonsgroup.family:/tmp
+
+ssh -l root openstack.lyonsgroup.family -i ~/.ssh/id_rsa "
+rm -rf /etc/letsencrypt/live/lyonsgroup.family/fullchain.pem;
+mv /tmp/lyonsgroup-wildcard.fullchain /etc/letsencrypt/live/lyonsgroup.family/fullchain.pem;
+"
+############################
 ###########################
 
 ############# Update certs on Docker host
