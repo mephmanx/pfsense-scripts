@@ -23,12 +23,21 @@ echo `jot -r 1 1 10000` > stamp.ver
 #### Add code here.  code outside is wrapper to detect things run
 IFS=
 
+#### empty known_hosts file to set up keys
+ > ~/.ssh/known_hosts
+######
+
+###### trust hosts
+ssh-keyscan -H openstack.lyonsgroup.family >> ~/.ssh/known_hosts
+ssh-keyscan -H cloudsupport.lyonsgroup.family >> ~/.ssh/known_hosts
+###########
+
 ####### Update cert on centos server
 ####
 # If update fails, run this on pfsense router:  ssh-copy-id -i ~/.ssh/id_rsa.pub root@centos (or openstack, if old image)
 #####
 
-echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@openstack
+echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@openstack.lyonsgroup.family
 
 scp /conf/acme/lyonsgroup-wildcard.crt root@openstack.lyonsgroup.family:/tmp
 
@@ -65,7 +74,7 @@ mv /tmp/lyonsgroup-wildcard.fullchain /etc/letsencrypt/live/lyonsgroup.family/fu
 # If update fails, run this on pfsense router:  ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport
 #####
 
-echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport
+echo "$CENTOS_ROOT_PWD" | ssh-copy-id -i ~/.ssh/id_rsa.pub root@cloudsupport.lyonsgroup.family
 
 scp /conf/acme/lyonsgroup-wildcard.crt root@cloudsupport.lyonsgroup.family:/tmp
 
